@@ -71,7 +71,6 @@ import java.util.Properties;
 
 
 public class EmailLambdaHandler implements RequestHandler<Map<String, Object>, String> {
-
     private static final String FROM_EMAIL = "palleshiva2007@gmail.com";
     private static final String TO_EMAIL   = "pallesumathi18@gmail.com";
 
@@ -81,11 +80,12 @@ public class EmailLambdaHandler implements RequestHandler<Map<String, Object>, S
      * Works for BOTH Local & AWS
      * ==================================================
      */
+    
     private static void sendMail() throws Exception {
-
+        
         // 1️⃣ AWS Lambda way (Environment Variable)
         String resolvedPass = System.getenv("SMTP_PASS");
-
+        
         // 2️⃣ Local IntelliJ fallback (VM option)
         if (resolvedPass == null || resolvedPass.isEmpty()) {
             resolvedPass = System.getProperty("SMTP_PASS");
