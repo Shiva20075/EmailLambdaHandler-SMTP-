@@ -67,10 +67,6 @@ import java.util.Properties;
  * the command line. It allows developers to verify the email functionality
  * locally before deploying the same code to AWS Lambda.
  *
- * Overall Design:
- * The code follows best practices by keeping secrets outside the source code,
- * using environment-specific configuration, and reusing the same logic for both
- * local testing and cloud execution.
  */
 
 
