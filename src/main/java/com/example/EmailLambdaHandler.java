@@ -71,6 +71,7 @@ import java.util.Properties;
 
 
 public class EmailLambdaHandler implements RequestHandler<Map<String, Object>, String> {
+    
     private static final String FROM_EMAIL = "palleshiva2007@gmail.com";
     private static final String TO_EMAIL   = "pallesumathi18@gmail.com";
 
