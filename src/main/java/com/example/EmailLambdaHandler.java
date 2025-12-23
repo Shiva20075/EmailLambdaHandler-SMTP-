@@ -74,20 +74,10 @@ public class EmailLambdaHandler implements RequestHandler<Map<String, Object>, S
     
     private static final String FROM_EMAIL = "palleshiva2007@gmail.com";
     private static final String TO_EMAIL   = "pallesumathi18@gmail.com";
-
-    /**
-     * ==================================================
-     * COMMON MAIL LOGIC
-     * Works for BOTH Local & AWS
-     * ==================================================
-     */
     
     private static void sendMail() throws Exception {
-        
-        // 1️⃣ AWS Lambda way (Environment Variable)
         String resolvedPass = System.getenv("SMTP_PASS");
         
-        // 2️⃣ Local IntelliJ fallback (VM option)
         if (resolvedPass == null || resolvedPass.isEmpty()) {
             resolvedPass = System.getProperty("SMTP_PASS");
         }
@@ -98,8 +88,7 @@ public class EmailLambdaHandler implements RequestHandler<Map<String, Object>, S
             );
         }
 
-        final String smtpPass = resolvedPass; // must be final
-
+        final String smtpPass = resolvedPass; 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -119,7 +108,6 @@ public class EmailLambdaHandler implements RequestHandler<Map<String, Object>, S
                 Message.RecipientType.TO,
                 InternetAddress.parse(TO_EMAIL)
         );
-
         message.setSubject("Email from Local & AWS Lambda");
         message.setText(
                 "Hi sumathi,\n\n" +
@@ -130,16 +118,10 @@ public class EmailLambdaHandler implements RequestHandler<Map<String, Object>, S
                         "Regards,\n" +
                         "Shiva"
         );
-
+        
         Transport.send(message);
     }
 
-    /**
-     * ==================================================
-     * AWS LAMBDA ENTRY POINT
-     * ==================================================
-     */
-    
     @Override
     public String handleRequest(Map<String, Object> event, Context context) {
         try {
@@ -152,12 +134,6 @@ public class EmailLambdaHandler implements RequestHandler<Map<String, Object>, S
             return "FAILED";
         }
     }
-    
-    /**
-     * ==================================================
-     * LOCAL / INTELLIJ ENTRY POINT
-     * ==================================================
-     */
     
     public static void main(String[] args) {
         try {
